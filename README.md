@@ -1,2 +1,2 @@
 # Object-Detection
-Creation Date : 1/11/2026
+Repositori ini digunakan untuk kebutuhan riset Object Detection untuk Bengawan UV 2026
