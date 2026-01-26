@@ -9,7 +9,7 @@ if __name__ == '__main__':
         device = 'cuda'
         
     else:
-        print("akdfjalkjfdl")
+        print("gak kedetek gpu")
         device = 'cpu'
     
     model = YOLO('yolo11n.pt')
