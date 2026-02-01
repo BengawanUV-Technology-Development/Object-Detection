@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# Python virtual environment
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Large model files (uncomment if you want to exclude)
+# *.pt
+# *.onnx
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+
+# Runs directory contents (mount as volume instead)
+# runs/*
