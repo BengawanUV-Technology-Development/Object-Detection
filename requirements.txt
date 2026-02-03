@@ -1,10 +1,29 @@
-ultralytics>=8.0.0
-torch>=2.0.0
-torchvision>=0.15.0
-onnx>=1.14.0
-onnxruntime>=1.15.0
-numpy>=1.24.0
-opencv-python>=4.8.0
-Pillow>=9.5.0
-matplotlib>=3.7.0
-pyyaml>=6.0
+# =================================================
+# Requirements for Jetson Nano (Python 3.6 compatible)
+# =================================================
+# Avoid 'ultralytics' (it's for Python 3.8+)
+
+# Core dependencies
+matplotlib>=3.2.2
+numpy>=1.18.5
+Pillow>=7.1.2
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1
+tqdm>=4.64.0
+pandas>=1.1.4
+seaborn>=0.11.0
+
+# Computer Vision
+opencv-python>=4.1.2
+
+# =================================================
+# NOTE: PyTorch installation
+# =================================================
+# For LAPTOP (training): Install via pip with your CUDA version
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#
+# For JETSON NANO: PyTorch comes pre-installed in L4T containers
+#   or install from NVIDIA's wheel:
+#   https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+# =================================================
