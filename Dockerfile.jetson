@@ -24,13 +24,20 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir \
-    numpy>=1.18.5 \
-    Pillow>=7.1.2 \
-    PyYAML>=5.3.1 \
-    tqdm>=4.64.0
+    "numpy>=1.18.5,<1.20" \
+    "Pillow==8.4.0" \
+    "PyYAML>=5.3.1" \
+    "tqdm>=4.64.0"
 
-# Install ONNX Runtime for inference (use CPU version, more compatible)
-RUN pip3 install --no-cache-dir onnxruntime
+# Install ONNX Runtime for Jetson (pre-built wheel from NVIDIA)
+# First install dependencies with Python 3.6 compatible versions
+RUN pip3 install --no-cache-dir "protobuf==3.19.6" "flatbuffers==2.0"
+
+# Download and install ONNX Runtime GPU for Jetson
+# Source: https://elinux.org/Jetson_Zoo#ONNX_Runtime
+RUN wget -q https://nvidia.box.com/shared/static/pmsqsiaw4pg9qrbeckcbymho6c01jj4z.whl -O onnxruntime_gpu-1.11.0-cp36-cp36m-linux_aarch64.whl && \
+    pip3 install --no-deps onnxruntime_gpu-1.11.0-cp36-cp36m-linux_aarch64.whl && \
+    rm onnxruntime_gpu-1.11.0-cp36-cp36m-linux_aarch64.whl
 
 # Copy inference scripts
 COPY inference/ ./inference/
