@@ -2,7 +2,7 @@
 
 Panduan setup dan deployment Object Detection pada Jetson Nano Developer Kit.
 
-## 📋 Prerequisites
+## Prerequisites
 
 ### Hardware
 - Jetson Nano Developer Kit (4GB recommended)
@@ -19,7 +19,7 @@ Panduan setup dan deployment Object Detection pada Jetson Nano Developer Kit.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Flash JetPack ke SD Card
 
@@ -61,6 +61,17 @@ pip3 install torchvision==0.11.1
 
 ## 📦 Deployment Workflow
 
+### File yang Dibutuhkan di Jetson Nano
+
+| File | Sumber | Keterangan |
+|------|--------|------------|
+| `best.onnx` | Dari laptop (hasil export) | **WAJIB** - model untuk inference |
+| `inference/jetson_inference.py` | Clone dari repo | Script inference |
+| `requirements.txt` | Clone dari repo | Dependencies |
+| `Dockerfile.jetson` | Clone dari repo | Opsional (jika pakai Docker) |
+
+> **Note:** File `yolov5/`, `train*.py`, `datasets/` **TIDAK diperlukan** di Jetson.
+
 ### Workflow Overview
 
 ```
@@ -71,7 +82,7 @@ pip3 install torchvision==0.11.1
 │     → Output: runs/train/yolov5n_jetson/weights/best.pt         │
 │                                                                  │
 │  2. python model_conversion/pt_to_onnx.py                       │
-│     → Output: model.onnx                                         │
+│     → Output: best.onnx                                          │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               │ Transfer via SCP/USB
@@ -79,10 +90,14 @@ pip3 install torchvision==0.11.1
 ┌─────────────────────────────────────────────────────────────────┐
 │                      JETSON NANO (Inference)                     │
 ├─────────────────────────────────────────────────────────────────┤
-│  3. Convert ONNX to TensorRT (optional, untuk performa lebih)   │
+│  3. Clone repo: git clone <your-repo>                           │
+│                                                                  │
+│  4. Copy best.onnx ke folder models/                            │
+│                                                                  │
+│  5. Convert ONNX to TensorRT (opsional, untuk FPS lebih tinggi) │
 │     → Output: model.engine                                       │
 │                                                                  │
-│  4. python inference/jetson_inference.py --model model.onnx     │
+│  6. python3 inference/jetson_inference.py --model models/best.onnx│
 │     → Real-time object detection                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
